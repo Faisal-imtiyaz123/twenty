@@ -6,7 +6,7 @@ import {
   OnDragEndResponder,
 } from '@hello-pangea/dnd';
 import { v4 } from 'uuid';
-type DraggableListProps = {
+export type DraggableListProps = {
   draggableItems: React.ReactNode;
   onDragEnd: OnDragEndResponder;
 };
@@ -20,6 +20,7 @@ export const DraggableList = ({
   onDragEnd,
 }: DraggableListProps) => {
   const [v4Persistable] = useState(v4());
+
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>

@@ -123,6 +123,7 @@ export const ViewFieldsVisibilityDropdownSection = ({
 
                   return (
                     <DraggableItem
+                      isDraggableListScrollable
                       key={field.fieldMetadataId}
                       draggableId={field.fieldMetadataId}
                       index={fieldIndex + 1}
