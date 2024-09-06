@@ -12,7 +12,7 @@ export const CodeBlock = createReactBlockSpec(
     content: 'none',
   },
   {
-    render: ({ block}) => {
+    render: ({ block }) => {
       return (
         <CodeEditor
           value={block.props.code}

@@ -1,5 +1,7 @@
 import { getDefaultReactSlashMenuItems } from '@blocknote/react';
+import { insertOrUpdateBlock } from '@blocknote/core';
 import {
+  IconCode,
   IconComponent,
   IconFile,
   IconH1,
@@ -60,6 +62,18 @@ export const getSlashMenu = (editor: typeof blockSchema.BlockNoteEditor) => {
           currentBlock,
           'before',
         );
+      },
+    },
+    {
+      title: 'Code',
+      Icon: IconCode,
+      onItemClick: () => {
+        insertOrUpdateBlock(editor, {
+          type: 'codeBlock',
+          props: {
+            code: '',
+          },
+        });
       },
     },
   ];

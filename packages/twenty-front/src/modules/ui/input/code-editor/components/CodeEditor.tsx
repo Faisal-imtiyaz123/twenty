@@ -28,6 +28,7 @@ type CodeEditorProps = Omit<EditorProps, 'onChange'> & {
   header: React.ReactNode;
   onChange?: (value: string) => void;
   setIsCodeValid?: (isCodeValid: boolean) => void;
+  focusOnMount?: boolean;
 };
 
 export const CodeEditor = ({
@@ -38,9 +39,9 @@ export const CodeEditor = ({
   height = 450,
   options = undefined,
   header,
+  focusOnMount = false,
 }: CodeEditorProps) => {
   const theme = useTheme();
-
   const { availablePackages } = useGetAvailablePackages();
 
   const handleEditorDidMount = async (
@@ -49,6 +50,9 @@ export const CodeEditor = ({
   ) => {
     monaco.editor.defineTheme('codeEditorTheme', codeEditorTheme(theme));
     monaco.editor.setTheme('codeEditorTheme');
+    if (focusOnMount) {
+      editor.focus();
+    }
 
     if (language === 'typescript') {
       await AutoTypings.create(editor, {
