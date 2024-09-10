@@ -5,8 +5,9 @@ import {
   offset,
   Placement,
   useFloating,
+  size,
 } from '@floating-ui/react';
-import { MouseEvent, useRef } from 'react';
+import { MouseEvent, useRef, useState } from 'react';
 import { Keys } from 'react-hotkeys-hook';
 import { Key } from 'ts-key-enum';
 
@@ -63,6 +64,7 @@ export const Dropdown = ({
   onOpen,
 }: DropdownProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [availableHeight, setAvailableHeight] = useState(0);
 
   const { isDropdownOpen, toggleDropdown, closeDropdown, dropdownWidth } =
     useDropdown(dropdownId);
@@ -79,7 +81,18 @@ export const Dropdown = ({
 
   const { refs, floatingStyles } = useFloating({
     placement: dropdownPlacement,
-    middleware: [flip(), ...offsetMiddlewares],
+    middleware: [
+      flip(),
+      ...offsetMiddlewares,
+      size({
+        apply: ({ availableHeight, elements }) => {
+          Object.assign(elements.floating.style, {
+            maxHeight: `${availableHeight - 20}px`,
+            overflowY: 'auto',
+          });
+        },
+      }),
+    ],
     whileElementsMounted: autoUpdate,
     strategy: dropdownStrategy,
   });
